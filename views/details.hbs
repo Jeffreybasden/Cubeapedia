@@ -6,5 +6,21 @@
         <p><span>Description:{{cube.des}}</span></p>
         <p><span>Difficulty level:{{cube.diff}}</span></p>
         <a class="btn" href="/">Back</a>
+        {{#if owner}}
+        <a class="btn" href="/attach/accessory/{{cube._id}}">Add Accessory</a>
+        <a class="btn" href="/edit/{{cube._id}}">edit</a>
+        <a class="btn" href="/delete/{{cube._id}}">delete</a>
+        {{/if}}
       </div>
-   
+
+        <h2>Accessories</h2>
+            
+            {{#each accessory}}
+            <div class="accessory">
+                  <img src="{{imageUrl}}" alt="stickerName">
+                  <h3>{{name}}</h3>
+                  <p>{{des}}</p>
+            </div>
+            {{else}}
+            <h3 class="italic">This cube has no accessories yet...</h3>
+            {{/each}}

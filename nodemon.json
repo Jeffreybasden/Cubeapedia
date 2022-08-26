@@ -1,6 +1,9 @@
 {
  "env":{
     "PORT":4500,
-    "NODE_ENV":"development"
+    "NODE_ENV":"development",
+    "UserM": "jeff",
+    "PassM":"jeff100",
+    "Mongo": "cubes"
  }   
 }

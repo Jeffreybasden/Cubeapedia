@@ -90,6 +90,7 @@ p.name {
     border-bottom: 1px solid #2b415433;
 }
 
+
 button, main a.btn {
     border: none;
     padding: 8px;
@@ -97,18 +98,25 @@ button, main a.btn {
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    width: 43%;
+    width: 35%;
     margin: 12px;
-    margin-left: 6%;
     border-radius: 4px;
     background: #607588;
     color: white;
+}
+
+.details a.btn{
+    width: 28%;
 }
 
 button:hover {
     background-color: #0B2133;
     color: white;
     cursor: pointer;
+}
+
+a.btn:hover{
+    text-decoration: underline;
 }
 
 a {
@@ -157,6 +165,9 @@ form label {
 
 input[type=text],
 input[type=number],
+input[type=password],
+input[type=username],
+input[type=email],
 select,
 textarea {
     width: 100%;
@@ -229,6 +240,43 @@ h2{
     text-align: center;
 }
 
+.accessories .accessory{
+    display: inline-block;
+    background-color: #f3f3f2;
+    width: 20%;
+    padding: 1%;
+    margin: 1%;
+}
+
+.accessories, .italic{
+    text-align: center;
+    font-style: italic;
+}
+.text-center{
+    text-align: center;
+}
+
+a.link{
+    color: orange;
+}
+
+.msg{
+position: fixed;
+top: 120px;
+right:1rem;
+padding:1rem;
+box-shadow: 2px,2px,2px
+
+
+}
+
+.error{
+    background: red;
+}
+
+.success{
+    background: green;
+}
 footer {
     background: #607588;
     padding: 1em;
@@ -239,7 +287,6 @@ footer {
 
 /*Animations & Transitions
 */
-
 
 @-webkit-keyframes fadeOut {
     from {
