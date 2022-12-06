@@ -26,10 +26,17 @@ exports.getSignup= (req,res)=>{
 exports.signIn = (req,res)=>{
     const username = req.body.username
     const password = req.body.password
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.render('../views/resources/login.hbs',{
+            docTitle:'Login',
+            errorMessage:errors.array()[0].msg
+        })
+    }
     User.findOne({username:username}).then(user=>{
-        if(!user){
+        if(!user){ 
             req.flash('error','Invalid email or password')
-            return res.redirect('/login')
+            return res.status(400)
         }
         //compare password givin with password stored in the db
         Bcrypt.compare(password, user.password).then(match=>{
@@ -38,9 +45,12 @@ exports.signIn = (req,res)=>{
                 req.session.user = user
                 //store session in DB
                return req.session.save((err)=>{
-                    console.log(err)
-                    req.flash('success', 'LoggedIn successfully')
-                    res.redirect('/')
+                   if(err){
+                       console.log(err)
+                    }else{
+                        return res.status(200)
+                    } 
+
                 })
             }
             req.flash('error',"Username or Password not valid")
@@ -158,4 +168,13 @@ exports.postNewPassword = (req,res)=>{
         req.flash('success','Password was reset!')
     })
 
+}
+
+exports.getCheck = (req,res) =>{
+    loggedIn = req.session.isLoggedIn
+    if(loggedIn){
+        res.status(200)
+    }else{
+        res.status(400)
+    }
 }

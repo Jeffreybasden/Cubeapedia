@@ -1,0 +1,14 @@
+
+
+.list{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    margin: 0 1em;
+}
+
+.list:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

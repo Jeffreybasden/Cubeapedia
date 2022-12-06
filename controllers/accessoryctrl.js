@@ -32,7 +32,7 @@ exports.postCreate = (req,res)=>{
         // data passes checks then it is saved to remote database 
     const accessory = new Accessory(formData)
     accessory.save().then(()=>{
-        res.redirect('/')
+        res.status(200)
     })
 }
 
@@ -48,6 +48,6 @@ exports.postAttach = async(req,res)=>{
     accessory.Cubes.push(Id)
     await accessory.save()
 
-    res.redirect(`/details/${Id}`) 
+    res.send()
    
 }

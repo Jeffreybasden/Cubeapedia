@@ -13,20 +13,18 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const dburl  = `mongodb+srv://${process.env.UserM}:${process.env.PassM}@cluster0.aseevzx.mongodb.net/?retryWrites=true&w=majority`
+const cors = require("cors")
 
-//set view engine
-app.engine('hbs',handlebars({
-    extname:'.hbs',
-    partialDir:__dirname+'/views/partials'
-}))
-app.set('views',__dirname+'/views')
-app.set('view engine','hbs')
 
-// middleWares
+
+
+// middleWare
 const store = new MongoDBStore({ 
     uri:dburl,
     collection:'sessions'
 })
+
+app.use(cors())
 
 app.use(session({
     secret:'weheremyguy',
@@ -37,7 +35,7 @@ app.use(session({
 app.use(flash()) 
 
 app.use((req,res,next)=>{
-    if(!req.session.user){
+    if(!req.session.user){ 
         return next()
     }else{
 
