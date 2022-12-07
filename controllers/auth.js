@@ -171,10 +171,7 @@ exports.postNewPassword = (req,res)=>{
 }
 
 exports.getCheck = (req,res) =>{
-    loggedIn = req.session.isLoggedIn
-    if(loggedIn){
-        res.status(200)
-    }else{
-        res.status(400)
-    }
+        console.log(res)
+       return res.status(200)
+    
 }

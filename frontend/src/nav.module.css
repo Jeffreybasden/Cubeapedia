@@ -1,6 +1,21 @@
 
+.headerul {
+    margin: 0;
+}
 
-.list{
+.header {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+    background-color: #607588;
+}
+
+.ulli{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.headerullia {
     text-decoration: none;
     text-transform: uppercase;
     color: white;
@@ -8,7 +23,7 @@
     margin: 0 1em;
 }
 
-.list:hover {
+.headerullia:hover {
     cursor: pointer;
     text-decoration: underline;
 }

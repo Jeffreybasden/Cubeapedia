@@ -1,22 +1,29 @@
-import {BrowserRouter as Route} from 'react-router-dom'
+import React from 'react';
+import {Routes,Route} from 'react-router-dom'
 import Home from "./components/home"
 import Navigation from './components/navigation';
 import Login from "./components/loginPage"
-import {useState} from "react"
+import Footer from './components/footer';
+import About from './components/about';
+import NotFound from './components/404';
 function App() {
   return (
-    <div>
-    <head>
-  <meta charSet="UTF-8"/>
-  <title> </title>
-  <link href="../css/site.css" type="text/css" rel="stylesheet"/>
-  <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.png' />
-</head>
+    <>
+  <div className='container'>
   <Navigation/>
-  <Route path='/' exact component={Home} />
-  <Route path='/login' exact component={Login} />
+ <main>
+ <Routes>
+  <Route path='/' element={<Home/>}/>
+  <Route path='/login' element={<Login/>} />
+  <Route path='/about' element={<About/>}/>
+  <Route path='*' element={<NotFound/>}/>
+ </Routes>
+ </main>
   </div>
+  <Footer/>
+    </>
   );
+  
 }
 
 export default App;
