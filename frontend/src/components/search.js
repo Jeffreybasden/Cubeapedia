@@ -11,7 +11,7 @@ const Search = () =>{
         <span>-</span>
         <input type="number" name="to" class="difficulty" placeholder="Difficulty to..."/>
         <input type="submit" value="search"/>
-      </form>
+        </form>
        </div> 
     )
 }

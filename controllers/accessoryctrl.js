@@ -2,7 +2,7 @@ const Cube = require('../models/Cube')
 const Accessory = require('../models/Accessory')
 
 exports.getAttach = (req,res)=>{
-    //fine cube details 
+    //find cube details 
     //get all accessories 
     //then send back accessories that are not already attached to that cube 
     Cube.findById(req.params.cubeId).populate('accessories').then((cube)=>{

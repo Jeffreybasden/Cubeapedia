@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express()
-
 const bodyparser = require('body-parser')
 const dev  = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 3000;
@@ -10,7 +9,6 @@ const mongoose = require('mongoose')
 const accessRoutes = require('./routes/accessory')
 const auth = require('./routes/auth')
 const session = require('express-session')
-const flash = require('connect-flash')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const dburl  = `mongodb+srv://${process.env.UserM}:${process.env.PassM}@cluster0.aseevzx.mongodb.net/?retryWrites=true&w=majority`
 const cors = require("cors")
@@ -32,7 +30,6 @@ app.use(session({
     saveUninitialized:false,
     store:store
 }))
-app.use(flash()) 
 
 app.use((req,res,next)=>{
     if(!req.session.user){ 
@@ -47,22 +44,15 @@ app.use((req,res,next)=>{
 })
 app.use((req,res,next)=>{
     res.locals.isAuthenticated = req.session.isLoggedIn
-    res.locals.errorMessage = req.flash('error') 
-    res.locals.successMessage = req.flash('success')
     next()
 })
 
 
-app.use(bodyparser.urlencoded({extended:false}))
+app.use(bodyparser.json({extended:true}))
 app.use(express.static('static'))
 app.use(cubeRoutes)
 app.use(accessRoutes)
 app.use(auth)
-
-app.use((req,res)=>{
-    res.render('../views/404.hbs')
-})
-
 mongoose.connect(dburl).then(()=>{
 app.listen(port, console.log(`Listening on port ${port}! Now its up to you...`));
 }).catch(err=>{

@@ -63,11 +63,11 @@ exports.getDetails = (req,res)=>{
     Cube.findById({_id:id}).populate('accessories').then(cube=>{
         let owner = false;
         if(req.user){
-            owner = req.user._id.toString() === cube.creatorId
-            console.log(owner,req.user,cube.creatorId)
+            owner = req.user._id.toString() === cube.creatorId   
         }
-        
-       res.json(cube)
+        console.log(cube)
+        cube = {...cube, owner}
+        res.json(cube)
     })
         
         

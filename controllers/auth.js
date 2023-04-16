@@ -3,7 +3,7 @@ const Bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
 
-const transporter=nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service:'gmail',
     auth:{
         user:'',
@@ -11,28 +11,9 @@ const transporter=nodemailer.createTransport({
     }
 })
 
-
-
-
-
-exports.getLogin = (req,res)=>{
-    res.render('../views/resources/loginPage.hbs')
-}
-
-exports.getSignup= (req,res)=>{
-    res.render('../views/resources/registerPage.hbs',{docTitle:'Signup', errorMessage:req.flash('error'), successMessage:req.flash('success')})
-}
-
 exports.signIn = (req,res)=>{
     const username = req.body.username
     const password = req.body.password
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.render('../views/resources/login.hbs',{
-            docTitle:'Login',
-            errorMessage:errors.array()[0].msg
-        })
-    }
     User.findOne({username:username}).then(user=>{
         if(!user){ 
             req.flash('error','Invalid email or password')
@@ -53,42 +34,41 @@ exports.signIn = (req,res)=>{
 
                 })
             }
-            req.flash('error',"Username or Password not valid")
-            return res.redirect('/login')
+            return res.status(400)
         })
     }).catch(err=>{
         console.log(err)
-        res.redirect('/login')
     })
 
 
 }
 exports.register = (req,res)=>{
- //make sure username isn't used
+    //make sure username isn't used
     User.find({username:req.body.username}).then(userData=>{
-    if(userData.length>0){
-        req.flash('error','Username already exist')
-        return res.redirect('/register')
-    }
- })
-// make sure email is not used 
- User.find({email:req.body.email}).then(userData=>{
-    if(userData){
-        req.flash('error', 'Email already used')
-        return res.redirect('/login')
-    }
- })
- 
+        if(userData.length>0){
+            console.log('error','Username already exist')
+            return res.status(400).json({error:"username"})
+        }
+    })
+    // make sure email is not used 
+    User.find({email:req.body.email}).then(userData=>{
+        console.log(userData)
+        if(userData.length>0){
+            console.log('error:', 'Email already used')
+            return res.status(400).json({error:"email"})
+        }
+    })
  Bcrypt.hash(req.body.password,12).then(hash=>{
-    const user = new User({username:req.body.username, password:hash, email:req.body.email,})
+    const user = new User({username:req.body.username, password:hash, email:req.body.email})
     user.save().then(()=>{
-       transporter.sendMail({
-        to:email,
-        subject:'Welcome to Cubepedia!',
-        html:`<p>Can't wait to see what you bring to the site ${req.body.username}!</p>`
-       })
-       req.flash("success", "Welcome")
-        return res.redirect('/login')
+    //    transporter.sendMail({
+    //     to:email,
+    //     subject:'Welcome to Cubepedia!',
+    //     html:`<p>Can't wait to see what you bring to the site ${req.body.username}!</p>`
+    //    })
+       console.log("user added")
+        return res.status(200).json({success:"user added"})
+        
     })
 })
 
@@ -98,7 +78,7 @@ exports.logOut = (req,res)=>{
     req.flash('success','Logout successful')
     req.session.destroy(err=>{
         console.log(err)
-        res.redirect('/')
+        res.status(200)
     })
 }
 
@@ -115,7 +95,7 @@ exports.postReset = (req,res)=>{
     const token = buffer.toString('hex')
         User.findOne({email:email}).then(user=>{
         if(!user){
-           return res.flash('error','No account with this email')
+           return res.status()
         }
         user.resetToken = token
         user.resetTokenExpiration = Date.now() +3600000
@@ -165,7 +145,7 @@ exports.postNewPassword = (req,res)=>{
         resetUser.resetTokenExpiration= undefined
         return resetUser.save()
     }).then(results=>{
-        req.flash('success','Password was reset!')
+        res.status(200)
     })
 
 }
