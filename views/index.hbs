@@ -7,11 +7,11 @@
       <h1>Browser</h1>
      {{>search}}
       {{#each cubes}}
-       <div class="cube">
-        <img class="cube" src="{{imageUrl}}">
-        <p class="name">{{name}}</p>
+       <div className="cube">
+        <img className="cube" src="{{imageUrl}}">
+        <p className="name">{{name}}</p>
         <p><span>Difficulty level:</span> {{diff}}</p>
-        <a class="btn" href="/details/{{_id}}">Details</a>
+        <a className="btn" href="/details/{{_id}}">Details</a>
       </div>
       {{else}}
       <h1 style="text-align:center;"> no cubes, you can add one</h1>

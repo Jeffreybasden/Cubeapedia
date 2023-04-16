@@ -296,7 +296,7 @@ footer {
     to {
         opacity: 0;
     }
-}
+
 
 @keyframes fadeOut {
     from {

@@ -1,0 +1,29 @@
+
+.headerul {
+    margin: 0;
+}
+
+.header {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+    background-color: #607588;
+}
+
+.ulli{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.headerullia {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    margin: 0 1em;
+}
+
+.headerullia:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

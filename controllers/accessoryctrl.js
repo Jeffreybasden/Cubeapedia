@@ -2,7 +2,7 @@ const Cube = require('../models/Cube')
 const Accessory = require('../models/Accessory')
 
 exports.getAttach = (req,res)=>{
-    //fine cube details 
+    //find cube details 
     //get all accessories 
     //then send back accessories that are not already attached to that cube 
     Cube.findById(req.params.cubeId).populate('accessories').then((cube)=>{
@@ -32,7 +32,7 @@ exports.postCreate = (req,res)=>{
         // data passes checks then it is saved to remote database 
     const accessory = new Accessory(formData)
     accessory.save().then(()=>{
-        res.redirect('/')
+        res.status(200)
     })
 }
 
@@ -48,6 +48,6 @@ exports.postAttach = async(req,res)=>{
     accessory.Cubes.push(Id)
     await accessory.save()
 
-    res.redirect(`/details/${Id}`) 
+    res.send()
    
 }

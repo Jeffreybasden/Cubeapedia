@@ -27,19 +27,13 @@ exports.getHome = (req,res)=>{
             cubes = cubeCopy
         }
         
-        res.render('index.hbs',{docTitle:'Home Page', cubes:cubes})
+        res.json(cubes)
     })
     
     
 }
 
-exports.getAbout=(req,res)=>{
-    res.render('about.hbs',{docTitle:"About Us"})
-}
 
-exports.getCreate=(req,res)=>{
-    res.render('create.hbs',{docTitle:"Create Page"})
-}
 
 exports.postCreate=(req,res)=>{
 
@@ -50,27 +44,30 @@ exports.postCreate=(req,res)=>{
     }else if(!formData.des || formData.des.length>=200){
        return console.log('No description / Description too long!')
     }else if(!formData.imageUrl || !imagePattern.test(formData.imageUrl)){
-        console.log(formData)
+        
         return console.log('No Image / Invalid Image url')
     }else if(!formData.diff || formData.diff <1 || formData.diff >6)
         return console.log('Difficulty level is required 1-6')
-        formData.CreatorId = req.user._id.toString()
-        console.log(req.session, req)
-    cube = new Cube(formData)
+        formData.creatorId = req.user._id.toString()
+       
+      
+    const cube = new Cube(formData)
     cube.save().then(()=>{
         console.log('Cube stored in the Database')
-        res.redirect('/')
+        req.flash('success','Cube added')
+        res.status(200)
     }).catch(err=> console.log(err))
 }
 exports.getDetails = (req,res)=>{
     let id = req.params.id
-    Cube.find({_id:id}).populate('accessories').then(cube=>{
+    Cube.findById({_id:id}).populate('accessories').then(cube=>{
         let owner = false;
         if(req.user){
-            owner = req.user._id.toString() === cube.CreatorId
+            owner = req.user._id.toString() === cube.creatorId   
         }
-        console.log(cube[0].accessories)
-       res.render('details.hbs', {DocTitle:'Details',cube:cube[0], accessory:cube[0].accessories,owner})
+        console.log(cube)
+        cube = {...cube, owner}
+        res.json(cube)
     })
         
         
@@ -80,10 +77,32 @@ exports.getEdit = (req,res)=>{
 const cubeId = req.params.id
 Cube.findById(cubeId).then(cube=>{
     if(cube){
-        res.render('../views/resources/editCubePage',{docTitle:'EditCubes',cube})
+        res.json(cube)
     }
 })
 } 
  
     
-  
+exports.postEdit = async(req,res)=>{
+    req.body.name
+    req.body.diff
+    req.body.des
+    req.body.imageUrl
+    let cube = await Cube.findById(req.params.id)
+    cube.name  = req.body.name
+    cube.diff = req.body.diff
+    cube.des = req.body.des
+    cube.imageUrl = req.body.imageUrl
+
+    await cube.save()
+    res.status(200)
+
+}
+
+exports.getDelete = async(req,res) =>{
+    const id = req.params.id
+    await Cube.findByIdAndDelete(id)
+    req.flash('success', 'Cube deleted!')
+    res.status(200)
+
+}

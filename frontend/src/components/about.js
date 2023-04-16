@@ -1,9 +1,16 @@
+import React from "react";
 
-      
-      <h1>About Cupedia</h1>
+const About = () => {
+    return(
+    <div>
+           <h1>About Cupedia</h1>
       <div class="about">
-        <p>
+        
           <i>"Cupedia"</i> is a place, where you can browse some of the most popular rubik cubes in the world and add
          
       </div>
-    
+     
+    </div>
+    )
+}
+export default About
