@@ -26,6 +26,4 @@ We welcome contributions from the community! If you find a bug, have an idea for
 
 Cubepedia is released under the MIT License. See LICENSE for details.
 
-## Contact
 
-If you have any questions or feedback, you can reach us at [email address] or [GitHub profile].
