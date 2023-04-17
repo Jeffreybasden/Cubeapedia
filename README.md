@@ -12,7 +12,7 @@ To get started with Cubepedia, you'll need to have Node.js and npm installed on 
 
 ## Usage
 
-To start the Cubepedia application, run `npm start` in the Cubepedia directory this will start the api server. Then open a new terminal and cd into frontend and run 'npm start' again this will start the server and open the application in your default browser.
+To start the Cubepedia application, run `npm start` in the Cubepedia directory this will start the api server. Then open a new terminal and cd into frontend and run `npm start` again this will start the server and open the application in your default browser.
 
 Once the application is running, you can upload photos of Rubik's cubes by clicking the "Upload" button and filling out the form. You can also rate the level of difficulty and leave a description of the cube.
 
